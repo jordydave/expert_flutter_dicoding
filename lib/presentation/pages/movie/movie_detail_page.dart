@@ -165,18 +165,20 @@ class _DetailContentState extends State<DetailContent> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(message),
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.pushNamed(
-                                                  context,
-                                                  WatchlistMoviesPage
-                                                      .routeName);
-                                            },
-                                            child: Text(
-                                              "Go To Watchlist",
-                                              style: kBodyText.copyWith(
-                                                color: kPrussianBlue,
-                                                fontWeight: FontWeight.bold,
+                                          Expanded(
+                                            child: TextButton(
+                                              onPressed: () {
+                                                Navigator.pushNamed(
+                                                    context,
+                                                    WatchlistMoviesPage
+                                                        .routeName);
+                                              },
+                                              child: Text(
+                                                "Go To Watchlist",
+                                                style: kBodyText.copyWith(
+                                                  color: kPrussianBlue,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
                                             ),
                                           ),
