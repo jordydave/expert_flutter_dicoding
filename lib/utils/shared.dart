@@ -16,8 +16,17 @@ class Shared {
       debugPrint('bytes: $certBytes');
       context.setTrustedCertificatesBytes(certBytes);
       debugPrint('Success Certificate');
+    } on TlsException catch (e) {
+      if (e.osError?.message != null &&
+          e.osError!.message.contains('CERT_ALREADY_IN_HASH_TABLE')) {
+        debugPrint('cert already trusted');
+      } else {
+        debugPrint('Tls Exception: $e');
+        rethrow;
+      }
     } catch (e) {
       debugPrint('Error Certificate: $e');
+      rethrow;
     }
 
     HttpClient httpClient = HttpClient(context: context);
