@@ -14,7 +14,6 @@ import 'package:ditonton/presentation/bloc/tv/tv_detail_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv/tv_watchlist_bloc.dart';
 import 'package:ditonton/utils/network_info.dart';
 import 'package:ditonton/utils/ssl_pinning.dart';
-import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 
 import 'data/datasources/db/database_helper.dart';
