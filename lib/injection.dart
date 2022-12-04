@@ -1,11 +1,12 @@
-
 import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:ditonton/domain/usecases/movie/get_upcoming_movies.dart';
 import 'package:ditonton/presentation/bloc/movie/movie_detail_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie/movie_watchlist_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie/now_playing_movie_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie/popular_movie_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie/search_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie/top_rated_movie_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie/upcoming_movie_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv/now_playing_tv_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv/popular_tv_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv/search_tv_bloc.dart';
@@ -64,6 +65,11 @@ void init() {
   );
   locator.registerFactory(
     () => NowPlayingMovieBloc(
+      locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => UpcomingMovieBloc(
       locator(),
     ),
   );
@@ -134,6 +140,7 @@ void init() {
   locator.registerLazySingleton(() => GetWatchlistMovies(locator()));
   locator.registerLazySingleton(() => GetWatchlistTV(locator()));
   locator.registerLazySingleton(() => GetPopularTV(locator()));
+  locator.registerLazySingleton(() => GetUpComingMovies(locator()));
 
   // repository
   locator.registerLazySingleton<MovieRepository>(

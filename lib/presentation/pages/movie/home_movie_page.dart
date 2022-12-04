@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ditonton/presentation/bloc/movie/upcoming_movie_bloc.dart';
 import 'package:ditonton/presentation/pages/movie/popular_movies_page.dart';
 import 'package:ditonton/presentation/pages/movie/top_rated_movies_page.dart';
+import 'package:ditonton/presentation/pages/movie/upcoming_movies_page.dart';
 import 'package:ditonton/presentation/pages/movie/watchlist_movies_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +35,7 @@ class HomeMoviePageState extends State<HomeMoviePage> {
       context.read<NowPlayingMovieBloc>().add(GetNowPlayingMovie());
       context.read<PopularMovieBloc>().add(GetPopularMovie());
       context.read<TopRatedMovieBloc>().add(GetTopRatedMovie());
+      context.read<UpcomingMovieBloc>().add(GetUpcomingMovie());
     });
   }
 
@@ -172,7 +175,31 @@ class HomeMoviePageState extends State<HomeMoviePage> {
                     return Container();
                   }
                 },
-              )
+              ),
+              SeeMoreWidget(
+                title: 'Upcoming',
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  UpcomingMoviesPage.routeName,
+                ),
+              ),
+              BlocBuilder<UpcomingMovieBloc, UpcomingMovieState>(
+                builder: (context, state) {
+                  if (state is UpcomingMovieLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (state is UpcomingMovieHasData) {
+                    return MovieList(state.result);
+                  } else if (state is UpcomingMovieError) {
+                    return Center(
+                      child: Text(state.message),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
             ],
           ),
         ),

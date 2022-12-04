@@ -1,4 +1,3 @@
-
 import 'package:ditonton/firebase_options.dart';
 import 'package:ditonton/presentation/bloc/movie/movie_detail_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie/movie_watchlist_bloc.dart';
@@ -6,6 +5,7 @@ import 'package:ditonton/presentation/bloc/movie/now_playing_movie_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie/popular_movie_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie/search_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie/top_rated_movie_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie/upcoming_movie_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv/now_playing_tv_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv/popular_tv_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv/search_tv_bloc.dart';
@@ -18,6 +18,7 @@ import 'package:ditonton/presentation/pages/movie/movie_detail_page.dart';
 import 'package:ditonton/presentation/pages/movie/popular_movies_page.dart';
 import 'package:ditonton/presentation/pages/movie/search_page.dart';
 import 'package:ditonton/presentation/pages/movie/top_rated_movies_page.dart';
+import 'package:ditonton/presentation/pages/movie/upcoming_movies_page.dart';
 import 'package:ditonton/presentation/pages/movie/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/pages/tv/home_tv_page.dart';
 import 'package:ditonton/presentation/pages/tv/now_playing_tv_page.dart';
@@ -67,6 +68,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => di.locator<PopularMovieBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<UpcomingMovieBloc>(),
         ),
         BlocProvider(
           create: (_) => di.locator<NowPlayingTvBloc>(),
@@ -132,6 +136,8 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => TopRatedTVPage());
             case NowPlayingTVPage.routeName:
               return MaterialPageRoute(builder: (_) => NowPlayingTVPage());
+            case UpcomingMoviesPage.routeName:
+              return MaterialPageRoute(builder: (_) => UpcomingMoviesPage());
             case TVDetailpage.routeName:
               final id = settings.arguments as int;
               return MaterialPageRoute(
