@@ -5,6 +5,7 @@ import 'package:ditonton/domain/entities/movie/movie.dart';
 import 'package:ditonton/domain/entities/movie/movie_detail.dart';
 import 'package:ditonton/domain/usecases/movie/get_movie_detail.dart';
 import 'package:ditonton/domain/usecases/movie/get_movie_recommendations.dart';
+import 'package:ditonton/domain/usecases/movie/get_movie_similar.dart';
 import 'package:ditonton/presentation/bloc/movie/movie_detail_bloc.dart';
 import 'package:ditonton/utils/failure.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -13,18 +14,21 @@ import 'package:mockito/mockito.dart';
 
 import 'movie_detail_test.mocks.dart';
 
-@GenerateMocks([GetMovieDetail, GetMovieRecommendations])
+@GenerateMocks([GetMovieDetail, GetMovieRecommendations, GetMovieSimilar])
 void main() {
   late MovieDetailBloc movieDetailBloc;
   late MockGetMovieDetail mockGetMovieDetail;
   late MockGetMovieRecommendations mockGetMovieRecommendations;
+  late MockGetMovieSimilar mockGetMovieSimilar;
 
   setUp(() {
     mockGetMovieDetail = MockGetMovieDetail();
     mockGetMovieRecommendations = MockGetMovieRecommendations();
+    mockGetMovieSimilar = MockGetMovieSimilar();
     movieDetailBloc = MovieDetailBloc(
       mockGetMovieDetail,
       mockGetMovieRecommendations,
+      mockGetMovieSimilar,
     );
   });
 
@@ -72,6 +76,8 @@ void main() {
           .thenAnswer((_) async => const Right(tMovieDetail));
       when(mockGetMovieRecommendations.execute(1))
           .thenAnswer((_) async => Right(tMovieList));
+      when(mockGetMovieSimilar.execute(1))
+          .thenAnswer((_) async => Right(tMovieList));
 
       return movieDetailBloc;
     },
@@ -81,6 +87,7 @@ void main() {
       MovieDetailLoading(),
       MovieDetailHasData(
         tMovieDetail,
+        tMovieList,
         tMovieList,
       ),
     ],

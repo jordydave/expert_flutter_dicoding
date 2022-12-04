@@ -14,15 +14,18 @@ class MovieDetailLoading extends MovieDetailState {}
 class MovieDetailHasData extends MovieDetailState {
   final MovieDetail movieDetail;
   final List<Movie> recommendations;
+  final List<Movie> similar;
   const MovieDetailHasData(
     this.movieDetail,
     this.recommendations,
+    this.similar,
   );
 
   @override
   List<Object> get props => [
         movieDetail,
         recommendations,
+        similar,
       ];
 }
 

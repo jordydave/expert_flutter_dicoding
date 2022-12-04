@@ -1,4 +1,5 @@
 import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:ditonton/domain/usecases/movie/get_movie_similar.dart';
 import 'package:ditonton/domain/usecases/movie/get_upcoming_movies.dart';
 import 'package:ditonton/presentation/bloc/movie/movie_detail_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie/movie_watchlist_bloc.dart';
@@ -97,6 +98,7 @@ void init() {
     () => MovieDetailBloc(
       locator(),
       locator(),
+      locator(),
     ),
   );
   locator.registerFactory(
@@ -133,6 +135,7 @@ void init() {
   locator.registerLazySingleton(() => GetMovieRecommendations(locator()));
   locator.registerLazySingleton(() => GetTVRecommendations(locator()));
   locator.registerLazySingleton(() => SearchMovies(locator()));
+  locator.registerLazySingleton(() => GetMovieSimilar(locator()));
   locator.registerLazySingleton(() => SearchTV(locator()));
   locator.registerLazySingleton(() => GetWatchListStatus(locator(), locator()));
   locator.registerLazySingleton(() => SaveWatchlist(locator(), locator()));

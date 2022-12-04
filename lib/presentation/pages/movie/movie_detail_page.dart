@@ -55,11 +55,13 @@ class MovieDetailPageState extends State<MovieDetailPage> {
           } else if (state is MovieDetailHasData) {
             final movie = state.movieDetail;
             final movieRecommendations = state.recommendations;
+            final movieSimilar = state.similar;
             return SafeArea(
               child: DetailContent(
                 movie,
                 movieRecommendations,
                 isMovieAddToWatchList,
+                movieSimilar,
               ),
             );
           } else if (state is MovieDetailError) {
@@ -79,11 +81,16 @@ class MovieDetailPageState extends State<MovieDetailPage> {
 class DetailContent extends StatefulWidget {
   final MovieDetail movie;
   final List<Movie> recommendations;
+  final List<Movie> similiarMovie;
   bool isAddedWatchlist;
 
-  DetailContent(this.movie, this.recommendations, this.isAddedWatchlist,
-      {Key? key})
-      : super(key: key);
+  DetailContent(
+    this.movie,
+    this.recommendations,
+    this.isAddedWatchlist,
+    this.similiarMovie, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<DetailContent> createState() => _DetailContentState();
@@ -275,7 +282,7 @@ class _DetailContentState extends State<DetailContent> {
                                               ),
                                               child: CachedNetworkImage(
                                                 imageUrl:
-                                                    'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                                                    '$baseImageUrl${movie.posterPath}',
                                                 placeholder: (context, url) =>
                                                     const Center(
                                                   child:
@@ -290,6 +297,66 @@ class _DetailContentState extends State<DetailContent> {
                                         );
                                       },
                                       itemCount: widget.recommendations.length,
+                                    ),
+                                  );
+                                } else if (state is MovieDetailError) {
+                                  return Text(state.message);
+                                } else {
+                                  return Container();
+                                }
+                              },
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              'Similar',
+                              style: kHeading6,
+                            ),
+                            BlocBuilder<MovieDetailBloc, MovieDetailState>(
+                              builder: (context, state) {
+                                if (state is MovieDetailLoading) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else if (state is MovieDetailHasData) {
+                                  return SizedBox(
+                                    height: 150,
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) {
+                                        final movie =
+                                            widget.similiarMovie[index];
+                                        return Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: InkWell(
+                                            onTap: () {
+                                              Navigator.pushReplacementNamed(
+                                                context,
+                                                MovieDetailPage.routeName,
+                                                arguments: movie.id,
+                                              );
+                                            },
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                Radius.circular(8),
+                                              ),
+                                              child: CachedNetworkImage(
+                                                imageUrl:
+                                                    '$baseImageUrl${movie.posterPath}',
+                                                placeholder: (context, url) =>
+                                                    const Center(
+                                                  child:
+                                                      CircularProgressIndicator(),
+                                                ),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        const Icon(Icons.error),
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      itemCount: widget.similiarMovie.length,
                                     ),
                                   );
                                 } else if (state is MovieDetailError) {

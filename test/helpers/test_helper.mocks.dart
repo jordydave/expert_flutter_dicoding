@@ -133,6 +133,15 @@ class MockMovieRepository extends _i1.Mock implements _i6.MovieRepository {
                           Invocation.method(#getMovieRecommendations, [id]))))
           as _i7.Future<_i2.Either<_i8.Failure, List<_i9.Movie>>>);
   @override
+  _i7.Future<_i2.Either<_i8.Failure, List<_i9.Movie>>> getMovieSimilar(
+          int? id) =>
+      (super.noSuchMethod(Invocation.method(#getMovieSimilar, [id]),
+              returnValue:
+                  _i7.Future<_i2.Either<_i8.Failure, List<_i9.Movie>>>.value(
+                      _FakeEither_0<_i8.Failure, List<_i9.Movie>>(
+                          this, Invocation.method(#getMovieSimilar, [id]))))
+          as _i7.Future<_i2.Either<_i8.Failure, List<_i9.Movie>>>);
+  @override
   _i7.Future<_i2.Either<_i8.Failure, List<_i9.Movie>>> searchMovies(
           String? query) =>
       (super.noSuchMethod(Invocation.method(#searchMovies, [query]),
@@ -294,6 +303,12 @@ class MockMovieRemoteDataSource extends _i1.Mock
   @override
   _i7.Future<List<_i15.MovieModel>> getMovieRecommendations(int? id) =>
       (super.noSuchMethod(Invocation.method(#getMovieRecommendations, [id]),
+              returnValue:
+                  _i7.Future<List<_i15.MovieModel>>.value(<_i15.MovieModel>[]))
+          as _i7.Future<List<_i15.MovieModel>>);
+  @override
+  _i7.Future<List<_i15.MovieModel>> getMovieSimilar(int? id) =>
+      (super.noSuchMethod(Invocation.method(#getMovieSimilar, [id]),
               returnValue:
                   _i7.Future<List<_i15.MovieModel>>.value(<_i15.MovieModel>[]))
           as _i7.Future<List<_i15.MovieModel>>);

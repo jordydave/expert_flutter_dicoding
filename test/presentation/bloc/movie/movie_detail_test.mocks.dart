@@ -13,6 +13,7 @@ import 'package:ditonton/domain/repositories/movie/movie_repository.dart'
 import 'package:ditonton/domain/usecases/movie/get_movie_detail.dart' as _i4;
 import 'package:ditonton/domain/usecases/movie/get_movie_recommendations.dart'
     as _i8;
+import 'package:ditonton/domain/usecases/movie/get_movie_similar.dart' as _i10;
 import 'package:ditonton/utils/failure.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -68,6 +69,30 @@ class MockGetMovieDetail extends _i1.Mock implements _i4.GetMovieDetail {
 class MockGetMovieRecommendations extends _i1.Mock
     implements _i8.GetMovieRecommendations {
   MockGetMovieRecommendations() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.MovieRepository get repository =>
+      (super.noSuchMethod(Invocation.getter(#repository),
+              returnValue:
+                  _FakeMovieRepository_0(this, Invocation.getter(#repository)))
+          as _i2.MovieRepository);
+  @override
+  _i5.Future<_i3.Either<_i6.Failure, List<_i9.Movie>>> execute(dynamic id) =>
+      (super.noSuchMethod(Invocation.method(#execute, [id]),
+              returnValue:
+                  _i5.Future<_i3.Either<_i6.Failure, List<_i9.Movie>>>.value(
+                      _FakeEither_1<_i6.Failure, List<_i9.Movie>>(
+                          this, Invocation.method(#execute, [id]))))
+          as _i5.Future<_i3.Either<_i6.Failure, List<_i9.Movie>>>);
+}
+
+/// A class which mocks [GetMovieSimilar].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetMovieSimilar extends _i1.Mock implements _i10.GetMovieSimilar {
+  MockGetMovieSimilar() {
     _i1.throwOnMissingStub(this);
   }
 
