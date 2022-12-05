@@ -2,6 +2,8 @@ import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:ditonton/domain/usecases/movie/get_movie_genre.dart';
 import 'package:ditonton/domain/usecases/movie/get_movie_similar.dart';
 import 'package:ditonton/domain/usecases/movie/get_upcoming_movies.dart';
+import 'package:ditonton/domain/usecases/tv/get_tv_genre.dart';
+import 'package:ditonton/domain/usecases/tv/get_tv_genre_list.dart';
 import 'package:ditonton/domain/usecases/tv/get_tv_similar.dart';
 import 'package:ditonton/presentation/bloc/movie/movie_detail_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie/movie_genre_bloc.dart';
@@ -17,6 +19,8 @@ import 'package:ditonton/presentation/bloc/tv/popular_tv_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv/search_tv_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv/top_rated_tv_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv/tv_detail_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv/tv_genre_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv/tv_genre_list_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv/tv_watchlist_bloc.dart';
 import 'package:ditonton/utils/network_info.dart';
 import 'package:ditonton/utils/ssl_pinning.dart';
@@ -139,6 +143,16 @@ void init() {
       locator(),
     ),
   );
+  locator.registerFactory(
+    () => TvGenreListBloc(
+      locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => TvGenreBloc(
+      locator(),
+    ),
+  );
   // use case
   locator.registerLazySingleton(() => GetNowPlayingMovies(locator()));
   locator.registerLazySingleton(() => GetNowPlayingTV(locator()));
@@ -160,6 +174,8 @@ void init() {
   locator.registerLazySingleton(() => RemoveWatchlist(locator(), locator()));
   locator.registerLazySingleton(() => GetWatchlistMovies(locator()));
   locator.registerLazySingleton(() => GetWatchlistTV(locator()));
+  locator.registerLazySingleton(() => GetTVGenre(locator()));
+  locator.registerLazySingleton(() => GetTVGenreList(locator()));
   locator.registerLazySingleton(() => GetPopularTV(locator()));
   locator.registerLazySingleton(() => GetUpComingMovies(locator()));
 

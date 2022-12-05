@@ -222,6 +222,21 @@ class MockTVRepository extends _i1.Mock implements _i12.TVRepository {
                   this, Invocation.method(#getPopularTV, [])))) as _i7
           .Future<_i2.Either<_i8.Failure, List<_i13.TV>>>);
   @override
+  _i7.Future<_i2.Either<_i8.Failure, List<_i13.TV>>> getTVGenreList(int? id) =>
+      (super.noSuchMethod(Invocation.method(#getTVGenreList, [id]),
+          returnValue: _i7.Future<_i2.Either<_i8.Failure, List<_i13.TV>>>.value(
+              _FakeEither_0<_i8.Failure, List<_i13.TV>>(
+                  this, Invocation.method(#getTVGenreList, [id])))) as _i7
+          .Future<_i2.Either<_i8.Failure, List<_i13.TV>>>);
+  @override
+  _i7.Future<_i2.Either<_i8.Failure, List<_i10.Genre>>> getGenreTV() =>
+      (super.noSuchMethod(Invocation.method(#getGenreTV, []),
+              returnValue:
+                  _i7.Future<_i2.Either<_i8.Failure, List<_i10.Genre>>>.value(
+                      _FakeEither_0<_i8.Failure, List<_i10.Genre>>(
+                          this, Invocation.method(#getGenreTV, []))))
+          as _i7.Future<_i2.Either<_i8.Failure, List<_i10.Genre>>>);
+  @override
   _i7.Future<_i2.Either<_i8.Failure, List<_i13.TV>>> getTopRatedTV() =>
       (super.noSuchMethod(Invocation.method(#getTopRatedTV, []),
           returnValue: _i7.Future<_i2.Either<_i8.Failure, List<_i13.TV>>>.value(
@@ -442,6 +457,17 @@ class MockTVRemoteDataSource extends _i1.Mock
               returnValue:
                   _i7.Future<List<_i21.TVModel>>.value(<_i21.TVModel>[]))
           as _i7.Future<List<_i21.TVModel>>);
+  @override
+  _i7.Future<List<_i17.GenreModel>> getGenreTV() =>
+      (super.noSuchMethod(Invocation.method(#getGenreTV, []),
+              returnValue:
+                  _i7.Future<List<_i17.GenreModel>>.value(<_i17.GenreModel>[]))
+          as _i7.Future<List<_i17.GenreModel>>);
+  @override
+  _i7.Future<List<_i21.TVModel>> getTVGenreList(int? id) => (super.noSuchMethod(
+          Invocation.method(#getTVGenreList, [id]),
+          returnValue: _i7.Future<List<_i21.TVModel>>.value(<_i21.TVModel>[]))
+      as _i7.Future<List<_i21.TVModel>>);
   @override
   _i7.Future<List<_i21.TVModel>> searchTV(String? query) => (super.noSuchMethod(
           Invocation.method(#searchTV, [query]),

@@ -13,6 +13,8 @@ import 'package:ditonton/presentation/bloc/tv/popular_tv_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv/search_tv_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv/top_rated_tv_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv/tv_detail_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv/tv_genre_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv/tv_genre_list_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv/tv_watchlist_bloc.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/movie/home_movie_page.dart';
@@ -100,6 +102,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => di.locator<MovieGenreListBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<TvGenreListBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<TvGenreBloc>(),
         ),
       ],
       child: MaterialApp(

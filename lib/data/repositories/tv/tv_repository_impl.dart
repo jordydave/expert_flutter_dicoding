@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 
+import '../../../domain/entities/genre.dart';
 import '../../../domain/entities/tv/tv.dart';
 import '../../../domain/entities/tv/tv_detail.dart';
 import '../../../domain/repositories/tv/tv_repository.dart';
@@ -41,6 +42,34 @@ class TVRepositoryImpl implements TVRepository {
       } on CacheException catch (e) {
         return Left(CacheFailure(e.message));
       }
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TV>>> getTVGenreList(int id) async {
+    try {
+      final result = await remoteDataSource.getTVGenreList(id);
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return const Left(ServerFailure(''));
+    } on SocketException {
+      return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+      return Left(SSLFailure('CERTIFICATE_VERIFY_FAILED'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Genre>>> getGenreTV() async {
+    try {
+      final result = await remoteDataSource.getGenreTV();
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return const Left(ServerFailure(''));
+    } on SocketException {
+      return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+      return Left(SSLFailure('CERTIFICATE_VERIFY_FAILED'));
     }
   }
 
