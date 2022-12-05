@@ -307,10 +307,12 @@ class _DetailContentState extends State<DetailContent> {
                               },
                             ),
                             const SizedBox(height: 16),
-                            Text(
-                              'Similar',
-                              style: kHeading6,
-                            ),
+                            widget.similiarMovie.isNotEmpty
+                                ? Text(
+                                    'Similar',
+                                    style: kHeading6,
+                                  )
+                                : const SizedBox(),
                             BlocBuilder<MovieDetailBloc, MovieDetailState>(
                               builder: (context, state) {
                                 if (state is MovieDetailLoading) {
