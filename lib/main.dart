@@ -1,5 +1,7 @@
 import 'package:ditonton/firebase_options.dart';
 import 'package:ditonton/presentation/bloc/movie/movie_detail_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie/movie_genre_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie/movie_genre_list_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie/movie_watchlist_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie/now_playing_movie_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie/popular_movie_bloc.dart';
@@ -92,6 +94,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => di.locator<TvWatchlistBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<MovieGenreBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<MovieGenreListBloc>(),
         ),
       ],
       child: MaterialApp(

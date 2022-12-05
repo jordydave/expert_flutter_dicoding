@@ -1,7 +1,10 @@
 import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:ditonton/domain/usecases/movie/get_movie_genre.dart';
 import 'package:ditonton/domain/usecases/movie/get_movie_similar.dart';
 import 'package:ditonton/domain/usecases/movie/get_upcoming_movies.dart';
 import 'package:ditonton/presentation/bloc/movie/movie_detail_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie/movie_genre_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie/movie_genre_list_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie/movie_watchlist_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie/now_playing_movie_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie/popular_movie_bloc.dart';
@@ -28,6 +31,7 @@ import 'data/repositories/tv/tv_repository_impl.dart';
 import 'domain/repositories/movie/movie_repository.dart';
 import 'domain/repositories/tv/tv_repository.dart';
 import 'domain/usecases/movie/get_movie_detail.dart';
+import 'domain/usecases/movie/get_movie_genre_list.dart';
 import 'domain/usecases/movie/get_movie_recommendations.dart';
 import 'domain/usecases/movie/get_now_playing_movies.dart';
 import 'domain/usecases/movie/get_popular_movies.dart';
@@ -123,14 +127,25 @@ void init() {
       locator(),
     ),
   );
-
+  locator.registerFactory(
+    () => MovieGenreBloc(
+      locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => MovieGenreListBloc(
+      locator(),
+    ),
+  );
   // use case
   locator.registerLazySingleton(() => GetNowPlayingMovies(locator()));
   locator.registerLazySingleton(() => GetNowPlayingTV(locator()));
+  locator.registerLazySingleton(() => GetMoviesGenre(locator()));
   locator.registerLazySingleton(() => GetTopRatedTV(locator()));
   locator.registerLazySingleton(() => GetPopularMovies(locator()));
   locator.registerLazySingleton(() => GetTopRatedMovies(locator()));
   locator.registerLazySingleton(() => GetMovieDetail(locator()));
+  locator.registerLazySingleton(() => GetMoviesGenreList(locator()));
   locator.registerLazySingleton(() => GetTVDetail(locator()));
   locator.registerLazySingleton(() => GetMovieRecommendations(locator()));
   locator.registerLazySingleton(() => GetTVRecommendations(locator()));

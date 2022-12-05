@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:ditonton/data/models/genre_model.dart';
+import 'package:ditonton/data/models/movie/movie_genre_response.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../utils/constant.dart';
@@ -13,8 +15,10 @@ abstract class MovieRemoteDataSource {
   Future<List<MovieModel>> getPopularMovies();
   Future<List<MovieModel>> getTopRatedMovies();
   Future<List<MovieModel>> getUpcomingMovies();
+  Future<List<GenreModel>> getGenreMovies();
   Future<MovieDetailResponse> getMovieDetail(int id);
   Future<List<MovieModel>> getMovieRecommendations(int id);
+  Future<List<MovieModel>> getMovieGenreList(int id);
   Future<List<MovieModel>> getMovieSimilar(int id);
   Future<List<MovieModel>> searchMovies(String query);
 }
@@ -31,6 +35,18 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
 
     if (response.statusCode == 200) {
       return MovieResponse.fromJson(json.decode(response.body)).movieList;
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<GenreModel>> getGenreMovies() async {
+    final response =
+        await client.get(Uri.parse('$baseUrl/genre/movie/list?$apiKey'));
+
+    if (response.statusCode == 200) {
+      return MovieGenreResponse.fromJson(json.decode(response.body)).genreList;
     } else {
       throw ServerException();
     }
@@ -63,6 +79,18 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   Future<List<MovieModel>> getMovieRecommendations(int id) async {
     final response = await client
         .get(Uri.parse('$baseUrl/movie/$id/recommendations?$apiKey'));
+
+    if (response.statusCode == 200) {
+      return MovieResponse.fromJson(json.decode(response.body)).movieList;
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<MovieModel>> getMovieGenreList(int id) async {
+    final response = await client
+        .get(Uri.parse('$baseUrl/discover/movie?$apiKey&with_genres=$id'));
 
     if (response.statusCode == 200) {
       return MovieResponse.fromJson(json.decode(response.body)).movieList;

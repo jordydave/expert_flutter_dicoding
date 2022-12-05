@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ditonton/domain/entities/genre.dart';
+import 'package:ditonton/presentation/bloc/movie/movie_genre_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie/upcoming_movie_bloc.dart';
 import 'package:ditonton/presentation/pages/movie/popular_movies_page.dart';
 import 'package:ditonton/presentation/pages/movie/top_rated_movies_page.dart';
@@ -8,8 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/entities/movie/movie.dart';
+import '../../../styles/colors.dart';
 import '../../../styles/test_styles.dart';
 import '../../../utils/constant.dart';
+import '../../bloc/movie/movie_genre_list_bloc.dart';
 import '../../bloc/movie/now_playing_movie_bloc.dart';
 import '../../bloc/movie/popular_movie_bloc.dart';
 import '../../bloc/movie/top_rated_movie_bloc.dart';
@@ -36,9 +40,11 @@ class HomeMoviePageState extends State<HomeMoviePage> {
       context.read<PopularMovieBloc>().add(GetPopularMovie());
       context.read<TopRatedMovieBloc>().add(GetTopRatedMovie());
       context.read<UpcomingMovieBloc>().add(GetUpcomingMovie());
+      context.read<MovieGenreBloc>().add(GetMovieGenre());
     });
   }
 
+  String selectedGenre = 'Action';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,6 +113,50 @@ class HomeMoviePageState extends State<HomeMoviePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(
+                'Genre',
+                style: kHeading6,
+              ),
+              BlocBuilder<MovieGenreBloc, MovieGenreState>(
+                builder: (context, state) {
+                  if (state is MovieGenreLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (state is MovieGenreHasData) {
+                    return GenreList(state.result);
+                  } else if (state is MovieGenreError) {
+                    return Center(
+                      child: Text(
+                        state.message,
+                      ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
+              BlocBuilder<MovieGenreListBloc, MovieGenreListState>(
+                builder: (context, state) {
+                  if (state is MovieGenreListLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (state is MovieGenreListHasData) {
+                    return MovieList(
+                      state.result,
+                    );
+                  } else if (state is MovieGenreListError) {
+                    return Center(
+                      child: Text(
+                        state.message,
+                      ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
               Text(
                 'Now Playing',
                 style: kHeading6,
@@ -245,6 +295,70 @@ class MovieList extends StatelessWidget {
           );
         },
         itemCount: movies.length,
+      ),
+    );
+  }
+}
+
+class GenreList extends StatefulWidget {
+  final List<Genre> genres;
+  GenreList(
+    this.genres, {
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<GenreList> createState() => _GenreListState();
+}
+
+class _GenreListState extends State<GenreList> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      context.read<MovieGenreListBloc>().add(GetMovieGenreList(
+            widget.genres.first.id,
+          ));
+    });
+  }
+
+  String selectedGenre = 'Action';
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 5, right: 5, bottom: 5),
+      height: 60,
+      child: ListView.builder(
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        itemCount: widget.genres.length,
+        itemBuilder: (BuildContext context, int index) {
+          final genre = widget.genres[index];
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                selectedGenre = genre.name;
+              });
+              context.read<MovieGenreListBloc>().add(
+                    GetMovieGenreList(
+                      genre.id,
+                    ),
+                  );
+            },
+            child: Container(
+              padding: EdgeInsets.all(10),
+              margin: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: selectedGenre == genre.name ? kPrussianBlue : kDavysGrey,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Text(
+                widget.genres[index].name,
+              ),
+            ),
+          );
+        },
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:ditonton/domain/entities/genre.dart';
 
 import '../../../domain/entities/movie/movie.dart';
 import '../../../domain/entities/movie/movie_detail.dart';
@@ -75,6 +76,20 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
+  Future<Either<Failure, List<Movie>>> getMovieGenreList(int id) async {
+    try {
+      final result = await remoteDataSource.getMovieGenreList(id);
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return const Left(ServerFailure(''));
+    } on SocketException {
+      return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+      return Left(SSLFailure('CERTIFICATE_VERIFY_FAILED'));
+    }
+  }
+
+  @override
   Future<Either<Failure, List<Movie>>> getMovieSimilar(int id) async {
     try {
       final result = await remoteDataSource.getMovieSimilar(id);
@@ -92,6 +107,20 @@ class MovieRepositoryImpl implements MovieRepository {
   Future<Either<Failure, List<Movie>>> getPopularMovies() async {
     try {
       final result = await remoteDataSource.getPopularMovies();
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return const Left(ServerFailure(''));
+    } on SocketException {
+      return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+      return Left(SSLFailure('CERTIFICATE_VERIFY_FAILED'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Genre>>> getGenreMovies() async {
+    try {
+      final result = await remoteDataSource.getGenreMovies();
       return Right(result.map((model) => model.toEntity()).toList());
     } on ServerException {
       return const Left(ServerFailure(''));
