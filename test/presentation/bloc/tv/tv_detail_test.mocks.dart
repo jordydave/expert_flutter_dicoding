@@ -11,6 +11,7 @@ import 'package:ditonton/domain/entities/tv/tv_detail.dart' as _i7;
 import 'package:ditonton/domain/repositories/tv/tv_repository.dart' as _i2;
 import 'package:ditonton/domain/usecases/tv/get_tv_detail.dart' as _i4;
 import 'package:ditonton/domain/usecases/tv/get_tv_reccomendations.dart' as _i8;
+import 'package:ditonton/domain/usecases/tv/get_tv_similar.dart' as _i10;
 import 'package:ditonton/utils/failure.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -75,6 +76,29 @@ class MockGetTVRecommendations extends _i1.Mock
           as _i2.TVRepository);
   @override
   _i5.Future<_i3.Either<_i6.Failure, List<_i9.TV>>> execute(dynamic id) =>
+      (super.noSuchMethod(Invocation.method(#execute, [id]),
+          returnValue: _i5.Future<_i3.Either<_i6.Failure, List<_i9.TV>>>.value(
+              _FakeEither_1<_i6.Failure, List<_i9.TV>>(
+                  this, Invocation.method(#execute, [id])))) as _i5
+          .Future<_i3.Either<_i6.Failure, List<_i9.TV>>>);
+}
+
+/// A class which mocks [GetTVSimilar].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetTVSimilar extends _i1.Mock implements _i10.GetTVSimilar {
+  MockGetTVSimilar() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.TVRepository get repository =>
+      (super.noSuchMethod(Invocation.getter(#repository),
+              returnValue:
+                  _FakeTVRepository_0(this, Invocation.getter(#repository)))
+          as _i2.TVRepository);
+  @override
+  _i5.Future<_i3.Either<_i6.Failure, List<_i9.TV>>> execute(int? id) =>
       (super.noSuchMethod(Invocation.method(#execute, [id]),
           returnValue: _i5.Future<_i3.Either<_i6.Failure, List<_i9.TV>>>.value(
               _FakeEither_1<_i6.Failure, List<_i9.TV>>(

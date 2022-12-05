@@ -5,6 +5,7 @@ import 'package:ditonton/domain/entities/tv/tv.dart';
 import 'package:ditonton/domain/entities/tv/tv_detail.dart';
 import 'package:ditonton/domain/usecases/tv/get_tv_detail.dart';
 import 'package:ditonton/domain/usecases/tv/get_tv_reccomendations.dart';
+import 'package:ditonton/domain/usecases/tv/get_tv_similar.dart';
 import 'package:ditonton/presentation/bloc/tv/tv_detail_bloc.dart';
 import 'package:ditonton/utils/failure.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -13,18 +14,21 @@ import 'package:mockito/mockito.dart';
 
 import 'tv_detail_test.mocks.dart';
 
-@GenerateMocks([GetTVDetail, GetTVRecommendations])
+@GenerateMocks([GetTVDetail, GetTVRecommendations, GetTVSimilar])
 void main() {
   late TvDetailBloc tvDetailBloc;
   late MockGetTVDetail mockGetTVDetail;
   late MockGetTVRecommendations mockGetTVRecommendations;
+  late MockGetTVSimilar mockGetTVSimilar;
 
   setUp(() {
     mockGetTVDetail = MockGetTVDetail();
     mockGetTVRecommendations = MockGetTVRecommendations();
+    mockGetTVSimilar = MockGetTVSimilar();
     tvDetailBloc = TvDetailBloc(
       mockGetTVDetail,
       mockGetTVRecommendations,
+      mockGetTVSimilar,
     );
   });
 
@@ -75,6 +79,7 @@ void main() {
       TvDetailLoading(),
       TvDetailHasData(
         tTVDetail,
+        tTVList,
         tTVList,
       ),
     ],

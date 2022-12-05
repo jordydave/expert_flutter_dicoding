@@ -45,6 +45,20 @@ class TVRepositoryImpl implements TVRepository {
   }
 
   @override
+  Future<Either<Failure, List<TV>>> getTVSimilar(int id) async {
+    try {
+      final result = await remoteDataSource.getTVSimilar(id);
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return const Left(ServerFailure(''));
+    } on SocketException {
+      return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+      return Left(SSLFailure('CERTIFICATE_VERIFY_FAILED'));
+    }
+  }
+
+  @override
   Future<Either<Failure, List<TV>>> getPopularTV() async {
     try {
       final result = await remoteDataSource.getPopularTV();

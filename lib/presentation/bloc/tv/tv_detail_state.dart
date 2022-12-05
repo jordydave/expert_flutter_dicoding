@@ -14,9 +14,11 @@ class TvDetailLoading extends TvDetailState {}
 class TvDetailHasData extends TvDetailState {
   final TVDetail tvDetail;
   final List<TV> recommendations;
+  final List<TV> similar;
   const TvDetailHasData(
     this.tvDetail,
     this.recommendations,
+    this.similar,
   );
 
   @override

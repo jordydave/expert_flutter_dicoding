@@ -59,11 +59,13 @@ class _TVDetailpageState extends State<TVDetailpage> {
           } else if (state is TvDetailHasData) {
             final tv = state.tvDetail;
             final tvRecommendations = state.recommendations;
+            final tvSimilar = state.similar;
             return SafeArea(
               child: DetailContent(
                 tv,
                 tvRecommendations,
                 isTvAddToWatchList,
+                tvSimilar,
               ),
             );
           } else if (state is TvDetailError) {
@@ -83,11 +85,16 @@ class _TVDetailpageState extends State<TVDetailpage> {
 class DetailContent extends StatefulWidget {
   final TVDetail tv;
   final List<TV> reccomendations;
+  final List<TV> similarTV;
   bool isAddedWatchlist;
 
-  DetailContent(this.tv, this.reccomendations, this.isAddedWatchlist,
-      {Key? key})
-      : super(key: key);
+  DetailContent(
+    this.tv,
+    this.reccomendations,
+    this.isAddedWatchlist,
+    this.similarTV, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<DetailContent> createState() => _DetailContentState();
@@ -293,6 +300,67 @@ class _DetailContentState extends State<DetailContent> {
                                         );
                                       },
                                       itemCount: widget.reccomendations.length,
+                                    ),
+                                  );
+                                } else if (state is TvDetailError) {
+                                  return Text(state.message);
+                                } else {
+                                  return Container();
+                                }
+                              },
+                            ),
+                            const SizedBox(height: 16),
+                            widget.similarTV.isNotEmpty
+                                ? Text(
+                                    'Similar',
+                                    style: kHeading6,
+                                  )
+                                : const SizedBox(),
+                            BlocBuilder<TvDetailBloc, TvDetailState>(
+                              builder: (context, state) {
+                                if (state is TvDetailLoading) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else if (state is TvDetailHasData) {
+                                  return SizedBox(
+                                    height: 150,
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) {
+                                        final tv = widget.similarTV[index];
+                                        return Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: InkWell(
+                                            onTap: () {
+                                              Navigator.pushReplacementNamed(
+                                                context,
+                                                TVDetailpage.routeName,
+                                                arguments: tv.id,
+                                              );
+                                            },
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                Radius.circular(8),
+                                              ),
+                                              child: CachedNetworkImage(
+                                                imageUrl:
+                                                    '$baseImageUrl${tv.posterPath}',
+                                                placeholder: (context, url) =>
+                                                    const Center(
+                                                  child:
+                                                      CircularProgressIndicator(),
+                                                ),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        const Icon(Icons.error),
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      itemCount: widget.similarTV.length,
                                     ),
                                   );
                                 } else if (state is TvDetailError) {
