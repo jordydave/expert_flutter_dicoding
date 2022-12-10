@@ -15,10 +15,12 @@ class MovieDetailHasData extends MovieDetailState {
   final MovieDetail movieDetail;
   final List<Movie> recommendations;
   final List<Movie> similar;
+  final List<Videos> videos;
   const MovieDetailHasData(
     this.movieDetail,
     this.recommendations,
     this.similar,
+    this.videos,
   );
 
   @override
@@ -26,6 +28,7 @@ class MovieDetailHasData extends MovieDetailState {
         movieDetail,
         recommendations,
         similar,
+        videos,
       ];
 }
 

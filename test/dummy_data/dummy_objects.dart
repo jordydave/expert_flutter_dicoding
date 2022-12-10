@@ -1,10 +1,9 @@
-
-
 import 'package:ditonton/data/models/movie/movie_table.dart';
 import 'package:ditonton/data/models/tv/tv_table.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/movie/movie.dart';
 import 'package:ditonton/domain/entities/movie/movie_detail.dart';
+import 'package:ditonton/domain/entities/movie/video.dart';
 import 'package:ditonton/domain/entities/tv/tv.dart';
 import 'package:ditonton/domain/entities/tv/tv_detail.dart';
 
@@ -79,6 +78,14 @@ const testMovieDetail = MovieDetail(
   voteAverage: 1,
   voteCount: 1,
 );
+
+const testMovieVideo = Videos(
+  name: 'Fight Club - Theatrical Trailer Remastered in HD',
+  key: 'SUXWAEX2jlg',
+  site: 'YouTube',
+  type: 'Trailer',
+);
+const tListMovieVideo = [testMovieVideo];
 
 final testTvFromCache = TV.watchlist(
   id: 31917,

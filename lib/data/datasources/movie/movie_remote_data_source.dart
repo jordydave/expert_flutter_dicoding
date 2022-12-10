@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:ditonton/data/models/genre_model.dart';
 import 'package:ditonton/data/models/movie/movie_genre_response.dart';
+import 'package:ditonton/data/models/movie/video_model.dart';
+import 'package:ditonton/data/models/movie/video_response.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../utils/constant.dart';
@@ -16,6 +18,7 @@ abstract class MovieRemoteDataSource {
   Future<List<MovieModel>> getTopRatedMovies();
   Future<List<MovieModel>> getUpcomingMovies();
   Future<List<GenreModel>> getGenreMovies();
+  Future<List<VideosModel>> getMovieVideo(int id);
   Future<MovieDetailResponse> getMovieDetail(int id);
   Future<List<MovieModel>> getMovieRecommendations(int id);
   Future<List<MovieModel>> getMovieGenreList(int id);
@@ -94,6 +97,18 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
 
     if (response.statusCode == 200) {
       return MovieResponse.fromJson(json.decode(response.body)).movieList;
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<VideosModel>> getMovieVideo(int id) async {
+    final response =
+        await client.get(Uri.parse('$baseUrl/movie/$id/videos?$apiKey'));
+
+    if (response.statusCode == 200) {
+      return VideoResponse.fromJson(json.decode(response.body)).videoList;
     } else {
       throw ServerException();
     }

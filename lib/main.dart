@@ -19,6 +19,7 @@ import 'package:ditonton/presentation/bloc/tv/tv_watchlist_bloc.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/movie/home_movie_page.dart';
 import 'package:ditonton/presentation/pages/movie/movie_detail_page.dart';
+import 'package:ditonton/presentation/pages/movie/movie_video_player_page.dart';
 import 'package:ditonton/presentation/pages/movie/popular_movies_page.dart';
 import 'package:ditonton/presentation/pages/movie/search_page.dart';
 import 'package:ditonton/presentation/pages/movie/top_rated_movies_page.dart';
@@ -111,6 +112,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Ditonton',
         theme: ThemeData.dark().copyWith(
           colorScheme: kColorScheme,
@@ -121,6 +123,7 @@ class MyApp extends StatelessWidget {
         home: HomeMoviePage(),
         navigatorObservers: [routeObserver],
         onGenerateRoute: (RouteSettings settings) {
+          final args = settings.arguments;
           switch (settings.name) {
             case '/home':
               return MaterialPageRoute(builder: (_) => HomeMoviePage());
@@ -129,9 +132,8 @@ class MyApp extends StatelessWidget {
             case TopRatedMoviesPage.routeName:
               return CupertinoPageRoute(builder: (_) => TopRatedMoviesPage());
             case MovieDetailPage.routeName:
-              final id = settings.arguments as int;
               return MaterialPageRoute(
-                builder: (_) => MovieDetailPage(id: id),
+                builder: (_) => MovieDetailPage(id: args as int),
                 settings: settings,
               );
             case SearchPage.routeName:
@@ -154,6 +156,16 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => NowPlayingTVPage());
             case UpcomingMoviesPage.routeName:
               return MaterialPageRoute(builder: (_) => UpcomingMoviesPage());
+            case MovieVideoPlayerPage.routeName:
+              if (args is List) {
+                return MaterialPageRoute(
+                  builder: (_) => MovieVideoPlayerPage(
+                    videos: args[0],
+                    movie: args[1],
+                  ),
+                );
+              }
+              break;
             case TVDetailpage.routeName:
               final id = settings.arguments as int;
               return MaterialPageRoute(
@@ -169,6 +181,7 @@ class MyApp extends StatelessWidget {
                 );
               });
           }
+          return null;
         },
       ),
     );

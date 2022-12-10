@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/domain/entities/genre.dart';
+import 'package:ditonton/domain/entities/movie/video.dart';
 
 import '../../../utils/failure.dart';
 import '../../entities/movie/movie.dart';
@@ -12,6 +13,7 @@ abstract class MovieRepository {
   Future<Either<Failure, List<Movie>>> getUpcomingMovies();
   Future<Either<Failure, List<Genre>>> getGenreMovies();
   Future<Either<Failure, List<Movie>>> getMovieGenreList(int id);
+  Future<Either<Failure, List<Videos>>> getMovieVideo(int id);
   Future<Either<Failure, MovieDetail>> getMovieDetail(int id);
   Future<Either<Failure, List<Movie>>> getMovieRecommendations(int id);
   Future<Either<Failure, List<Movie>>> getMovieSimilar(int id);

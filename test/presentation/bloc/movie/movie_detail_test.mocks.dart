@@ -8,12 +8,14 @@ import 'dart:async' as _i5;
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:ditonton/domain/entities/movie/movie.dart' as _i9;
 import 'package:ditonton/domain/entities/movie/movie_detail.dart' as _i7;
+import 'package:ditonton/domain/entities/movie/video.dart' as _i12;
 import 'package:ditonton/domain/repositories/movie/movie_repository.dart'
     as _i2;
 import 'package:ditonton/domain/usecases/movie/get_movie_detail.dart' as _i4;
 import 'package:ditonton/domain/usecases/movie/get_movie_recommendations.dart'
     as _i8;
 import 'package:ditonton/domain/usecases/movie/get_movie_similar.dart' as _i10;
+import 'package:ditonton/domain/usecases/movie/get_movie_video.dart' as _i11;
 import 'package:ditonton/utils/failure.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -110,4 +112,29 @@ class MockGetMovieSimilar extends _i1.Mock implements _i10.GetMovieSimilar {
                       _FakeEither_1<_i6.Failure, List<_i9.Movie>>(
                           this, Invocation.method(#execute, [id]))))
           as _i5.Future<_i3.Either<_i6.Failure, List<_i9.Movie>>>);
+}
+
+/// A class which mocks [GetMoviesVideos].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetMoviesVideos extends _i1.Mock implements _i11.GetMoviesVideos {
+  MockGetMoviesVideos() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.MovieRepository get repository =>
+      (super.noSuchMethod(Invocation.getter(#repository),
+              returnValue:
+                  _FakeMovieRepository_0(this, Invocation.getter(#repository)))
+          as _i2.MovieRepository);
+  @override
+  _i5.Future<_i3.Either<_i6.Failure, List<_i12.Videos>>> execute(
+          int? movieId) =>
+      (super.noSuchMethod(Invocation.method(#execute, [movieId]),
+              returnValue:
+                  _i5.Future<_i3.Either<_i6.Failure, List<_i12.Videos>>>.value(
+                      _FakeEither_1<_i6.Failure, List<_i12.Videos>>(
+                          this, Invocation.method(#execute, [movieId]))))
+          as _i5.Future<_i3.Either<_i6.Failure, List<_i12.Videos>>>);
 }

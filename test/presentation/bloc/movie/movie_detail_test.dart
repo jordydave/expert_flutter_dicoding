@@ -6,29 +6,36 @@ import 'package:ditonton/domain/entities/movie/movie_detail.dart';
 import 'package:ditonton/domain/usecases/movie/get_movie_detail.dart';
 import 'package:ditonton/domain/usecases/movie/get_movie_recommendations.dart';
 import 'package:ditonton/domain/usecases/movie/get_movie_similar.dart';
+import 'package:ditonton/domain/usecases/movie/get_movie_video.dart';
 import 'package:ditonton/presentation/bloc/movie/movie_detail_bloc.dart';
 import 'package:ditonton/utils/failure.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import '../../../dummy_data/dummy_objects.dart';
 import 'movie_detail_test.mocks.dart';
 
-@GenerateMocks([GetMovieDetail, GetMovieRecommendations, GetMovieSimilar])
+@GenerateMocks(
+    [GetMovieDetail, GetMovieRecommendations, GetMovieSimilar, GetMoviesVideos])
 void main() {
   late MovieDetailBloc movieDetailBloc;
   late MockGetMovieDetail mockGetMovieDetail;
   late MockGetMovieRecommendations mockGetMovieRecommendations;
   late MockGetMovieSimilar mockGetMovieSimilar;
+  late MockGetMoviesVideos mockGetMoviesVideos;
 
   setUp(() {
     mockGetMovieDetail = MockGetMovieDetail();
     mockGetMovieRecommendations = MockGetMovieRecommendations();
     mockGetMovieSimilar = MockGetMovieSimilar();
+    mockGetMoviesVideos = MockGetMoviesVideos();
+
     movieDetailBloc = MovieDetailBloc(
       mockGetMovieDetail,
       mockGetMovieRecommendations,
       mockGetMovieSimilar,
+      mockGetMoviesVideos,
     );
   });
 
@@ -78,6 +85,8 @@ void main() {
           .thenAnswer((_) async => Right(tMovieList));
       when(mockGetMovieSimilar.execute(1))
           .thenAnswer((_) async => Right(tMovieList));
+      when(mockGetMoviesVideos.execute(1))
+          .thenAnswer((_) async => Right(tListMovieVideo));
 
       return movieDetailBloc;
     },
@@ -89,6 +98,7 @@ void main() {
         tMovieDetail,
         tMovieList,
         tMovieList,
+        tListMovieVideo,
       ),
     ],
     verify: (bloc) {
@@ -104,6 +114,12 @@ void main() {
         (_) async => const Left(ServerFailure('Server Failure')),
       );
       when(mockGetMovieRecommendations.execute(1)).thenAnswer(
+        (_) async => const Left(ServerFailure('Server Failure')),
+      );
+      when(mockGetMovieSimilar.execute(1)).thenAnswer(
+        (_) async => const Left(ServerFailure('Server Failure')),
+      );
+      when(mockGetMoviesVideos.execute(1)).thenAnswer(
         (_) async => const Left(ServerFailure('Server Failure')),
       );
       return movieDetailBloc;

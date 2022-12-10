@@ -1,6 +1,7 @@
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:ditonton/domain/usecases/movie/get_movie_genre.dart';
 import 'package:ditonton/domain/usecases/movie/get_movie_similar.dart';
+import 'package:ditonton/domain/usecases/movie/get_movie_video.dart';
 import 'package:ditonton/domain/usecases/movie/get_upcoming_movies.dart';
 import 'package:ditonton/domain/usecases/tv/get_tv_genre.dart';
 import 'package:ditonton/domain/usecases/tv/get_tv_genre_list.dart';
@@ -108,6 +109,7 @@ void init() {
       locator(),
       locator(),
       locator(),
+      locator(),
     ),
   );
   locator.registerFactory(
@@ -178,6 +180,7 @@ void init() {
   locator.registerLazySingleton(() => GetTVGenreList(locator()));
   locator.registerLazySingleton(() => GetPopularTV(locator()));
   locator.registerLazySingleton(() => GetUpComingMovies(locator()));
+  locator.registerLazySingleton(() => GetMoviesVideos(locator()));
 
   // repository
   locator.registerLazySingleton<MovieRepository>(

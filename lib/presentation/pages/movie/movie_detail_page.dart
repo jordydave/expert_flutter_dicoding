@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ditonton/domain/entities/movie/video.dart';
 import 'package:ditonton/presentation/pages/movie/watchlist_movies_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +13,9 @@ import '../../../styles/test_styles.dart';
 import '../../../utils/constant.dart';
 import '../../bloc/movie/movie_detail_bloc.dart';
 import '../../bloc/movie/movie_watchlist_bloc.dart';
+import '../../widgets/movie/detail_movie_card.dart';
+import '../../widgets/movie/detail_movie_video_card.dart';
+import 'movie_video_player_page.dart';
 
 class MovieDetailPage extends StatefulWidget {
   static const routeName = '/detail';
@@ -56,12 +60,14 @@ class MovieDetailPageState extends State<MovieDetailPage> {
             final movie = state.movieDetail;
             final movieRecommendations = state.recommendations;
             final movieSimilar = state.similar;
+            final videos = state.videos;
             return SafeArea(
               child: DetailContent(
                 movie,
                 movieRecommendations,
                 isMovieAddToWatchList,
                 movieSimilar,
+                videos,
               ),
             );
           } else if (state is MovieDetailError) {
@@ -82,13 +88,15 @@ class DetailContent extends StatefulWidget {
   final MovieDetail movie;
   final List<Movie> recommendations;
   final List<Movie> similiarMovie;
+  final List<Videos> videos;
   bool isAddedWatchlist;
 
   DetailContent(
     this.movie,
     this.recommendations,
     this.isAddedWatchlist,
-    this.similiarMovie, {
+    this.similiarMovie,
+    this.videos, {
     Key? key,
   }) : super(key: key);
 
@@ -247,6 +255,58 @@ class _DetailContentState extends State<DetailContent> {
                               widget.movie.overview,
                             ),
                             const SizedBox(height: 16),
+                            widget.videos.isNotEmpty
+                                ? Text(
+                                    "Video",
+                                    style: kHeading6,
+                                  )
+                                : SizedBox(),
+                            BlocBuilder<MovieDetailBloc, MovieDetailState>(
+                              builder: (context, state) {
+                                if (state is MovieDetailLoading) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else if (state is MovieDetailHasData) {
+                                  return SizedBox(
+                                    height: 150,
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) {
+                                        final video = widget.videos[index];
+                                        return Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: InkWell(
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (_) {
+                                                    return MovieVideoPlayerPage(
+                                                      videos: widget.videos,
+                                                      movie: widget.movie,
+                                                    );
+                                                  },
+                                                ),
+                                              );
+                                            },
+                                            child: DetailMovieVideoCard(
+                                              videos: video,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      itemCount: widget.videos.length,
+                                    ),
+                                  );
+                                } else if (state is MovieDetailError) {
+                                  return Text(state.message);
+                                } else {
+                                  return Container();
+                                }
+                              },
+                            ),
+                            const SizedBox(height: 16),
                             Text(
                               'Recommendations',
                               style: kHeading6,
@@ -275,24 +335,8 @@ class _DetailContentState extends State<DetailContent> {
                                                 arguments: movie.id,
                                               );
                                             },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                Radius.circular(8),
-                                              ),
-                                              child: CachedNetworkImage(
-                                                imageUrl:
-                                                    '$baseImageUrl${movie.posterPath}',
-                                                placeholder: (context, url) =>
-                                                    const Center(
-                                                  child:
-                                                      CircularProgressIndicator(),
-                                                ),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        const Icon(Icons.error),
-                                              ),
-                                            ),
+                                            child:
+                                                DetailMovieCard(movie: movie),
                                           ),
                                         );
                                       },
@@ -337,24 +381,8 @@ class _DetailContentState extends State<DetailContent> {
                                                 arguments: movie.id,
                                               );
                                             },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                Radius.circular(8),
-                                              ),
-                                              child: CachedNetworkImage(
-                                                imageUrl:
-                                                    '$baseImageUrl${movie.posterPath}',
-                                                placeholder: (context, url) =>
-                                                    const Center(
-                                                  child:
-                                                      CircularProgressIndicator(),
-                                                ),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        const Icon(Icons.error),
-                                              ),
-                                            ),
+                                            child:
+                                                DetailMovieCard(movie: movie),
                                           ),
                                         );
                                       },
@@ -384,7 +412,6 @@ class _DetailContentState extends State<DetailContent> {
                 ),
               );
             },
-            // initialChildSize: 0.5,
             minChildSize: 0.25,
             // maxChildSize: 1.0,
           ),

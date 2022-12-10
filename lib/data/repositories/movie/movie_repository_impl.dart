@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/domain/entities/genre.dart';
+import 'package:ditonton/domain/entities/movie/video.dart';
 
 import '../../../domain/entities/movie/movie.dart';
 import '../../../domain/entities/movie/movie_detail.dart';
@@ -79,6 +80,20 @@ class MovieRepositoryImpl implements MovieRepository {
   Future<Either<Failure, List<Movie>>> getMovieGenreList(int id) async {
     try {
       final result = await remoteDataSource.getMovieGenreList(id);
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return const Left(ServerFailure(''));
+    } on SocketException {
+      return const Left(ConnectionFailure('Failed to connect to the network'));
+    } on TlsException {
+      return Left(SSLFailure('CERTIFICATE_VERIFY_FAILED'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Videos>>> getMovieVideo(int id) async {
+    try {
+      final result = await remoteDataSource.getMovieVideo(id);
       return Right(result.map((model) => model.toEntity()).toList());
     } on ServerException {
       return const Left(ServerFailure(''));
