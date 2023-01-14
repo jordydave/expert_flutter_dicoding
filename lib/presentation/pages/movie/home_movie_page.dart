@@ -53,10 +53,10 @@ class HomeMoviePageState extends State<HomeMoviePage> {
           children: [
             const UserAccountsDrawerHeader(
               currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/circle-g.png'),
+                backgroundImage: AssetImage('assets/logo.png'),
               ),
-              accountName: Text('Ditonton'),
-              accountEmail: Text('ditonton@dicoding.com'),
+              accountName: Text('FilmFinder'),
+              accountEmail: Text('jordydaveworks@gmail.com'),
             ),
             ListTile(
               leading: const Icon(Icons.movie),
@@ -97,7 +97,7 @@ class HomeMoviePageState extends State<HomeMoviePage> {
         ),
       ),
       appBar: AppBar(
-        title: const Text('Ditonton'),
+        title: const Text('FilmFinder Movie'),
         actions: [
           IconButton(
             onPressed: () {
@@ -350,7 +350,7 @@ class _GenreListState extends State<GenreList> {
               padding: EdgeInsets.all(10),
               margin: EdgeInsets.all(5),
               decoration: BoxDecoration(
-                color: selectedGenre == genre.name ? kPrussianBlue : kDavysGrey,
+                color: selectedGenre == genre.name ? kPrussianRed : kDavysGrey,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(

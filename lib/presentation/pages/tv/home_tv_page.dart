@@ -44,7 +44,7 @@ class _HomeTVPageState extends State<HomeTVPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ditonton TV'),
+        title: const Text('FilmFinder TV'),
         actions: [
           IconButton(
             onPressed: () {
@@ -267,7 +267,7 @@ class _GenreListState extends State<GenreList> {
               padding: EdgeInsets.all(10),
               margin: EdgeInsets.all(5),
               decoration: BoxDecoration(
-                color: selectedGenre == genre.name ? kPrussianBlue : kDavysGrey,
+                color: selectedGenre == genre.name ? kPrussianRed : kDavysGrey,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(

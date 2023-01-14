@@ -185,7 +185,7 @@ class _DetailContentState extends State<DetailContent> {
                                               child: Text(
                                                 "Go To Watchlist",
                                                 style: kBodyText.copyWith(
-                                                  color: kPrussianBlue,
+                                                  color: kPrussianRed,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -230,7 +230,7 @@ class _DetailContentState extends State<DetailContent> {
                                   itemCount: 5,
                                   itemBuilder: (context, index) => const Icon(
                                     Icons.star,
-                                    color: kMikadoYellow,
+                                    color: kMikadoRed,
                                   ),
                                   itemSize: 24,
                                 ),

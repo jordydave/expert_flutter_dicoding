@@ -20,10 +20,10 @@ final kTextTheme = TextTheme(
 );
 
 const kColorScheme = ColorScheme(
-  primary: kMikadoYellow,
-  primaryContainer: kMikadoYellow,
-  secondary: kPrussianBlue,
-  secondaryContainer: kPrussianBlue,
+  primary: kMikadoRed,
+  primaryContainer: kMikadoRed,
+  secondary: kPrussianRed,
+  secondaryContainer: kPrussianRed,
   surface: kRichBlack,
   background: kRichBlack,
   error: Colors.red,
