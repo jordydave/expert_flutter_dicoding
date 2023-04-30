@@ -1,4 +1,4 @@
-import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:ditonton/domain/usecases/movie/get_movie_genre.dart';
 import 'package:ditonton/domain/usecases/movie/get_movie_similar.dart';
 import 'package:ditonton/domain/usecases/movie/get_movie_video.dart';
@@ -215,5 +215,5 @@ void init() {
 
   // external
   locator.registerLazySingleton(() => SSLPinning.client);
-  locator.registerLazySingleton(() => DataConnectionChecker());
+  locator.registerLazySingleton(() => InternetConnectionChecker());
 }
