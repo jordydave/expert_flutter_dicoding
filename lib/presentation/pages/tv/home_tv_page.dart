@@ -5,6 +5,7 @@ import 'package:ditonton/presentation/pages/tv/popular_tv_page.dart';
 import 'package:ditonton/presentation/pages/tv/search_tv_page.dart';
 import 'package:ditonton/presentation/pages/tv/top_rated_tv_page.dart';
 import 'package:ditonton/presentation/pages/tv/tv_detail_page.dart';
+import 'package:ditonton/presentation/pages/tv/widgets/home_tv_genre_list_widget.dart';
 import 'package:ditonton/presentation/pages/tv/widgets/home_tv_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,6 +58,7 @@ class _HomeTVPageState extends State<HomeTVPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            /// Genre TV Card
             Text(
               'Genre',
               style: kHeading6,
@@ -80,6 +82,8 @@ class _HomeTVPageState extends State<HomeTVPage> {
                 }
               },
             ),
+
+            /// TV Genre List
             BlocBuilder<TvGenreListBloc, TvGenreListState>(
               builder: (context, state) {
                 if (state is TvGenreListLoading) {
@@ -101,11 +105,15 @@ class _HomeTVPageState extends State<HomeTVPage> {
                 }
               },
             ),
+
+            /// Now Playing TV
+
             SeeMoreWidget(
               title: 'Now Playing',
               onTap: () =>
                   Navigator.pushNamed(context, NowPlayingTVPage.routeName),
             ),
+
             BlocBuilder<NowPlayingTvBloc, NowPlayingTvState>(
               builder: (context, state) {
                 if (state is NowPlayingTvLoading) {
@@ -123,6 +131,8 @@ class _HomeTVPageState extends State<HomeTVPage> {
                 }
               },
             ),
+
+            /// Popular TV
             SeeMoreWidget(
               title: 'Popular',
               onTap: () =>
@@ -145,6 +155,8 @@ class _HomeTVPageState extends State<HomeTVPage> {
                 }
               },
             ),
+
+            /// Top Rated TV
             SeeMoreWidget(
               title: 'Top Rated',
               onTap: () =>
@@ -169,48 +181,6 @@ class _HomeTVPageState extends State<HomeTVPage> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class TVList extends StatelessWidget {
-  final List<TV> tv;
-
-  const TVList(this.tv, {Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          final television = tv[index];
-          return Container(
-            padding: const EdgeInsets.all(8),
-            child: InkWell(
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  TVDetailpage.routeName,
-                  arguments: television.id,
-                );
-              },
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(16)),
-                child: CachedNetworkImage(
-                  imageUrl: '$baseImageUrl${television.posterPath}',
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
-              ),
-            ),
-          );
-        },
-        itemCount: tv.length,
       ),
     );
   }
