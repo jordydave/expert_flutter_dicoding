@@ -2,7 +2,7 @@
     package="com.dicoding.ditonton">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="FilmFinder"
+        android:label="J-Flix"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"

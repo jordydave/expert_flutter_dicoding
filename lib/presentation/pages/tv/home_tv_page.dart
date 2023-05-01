@@ -40,7 +40,7 @@ class _HomeTVPageState extends State<HomeTVPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('FilmFinder TV'),
+        title: const Text('J-Flix TV'),
         actions: [
           IconButton(
             onPressed: () {

@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       providers: providers,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'FilmFinder',
+        title: 'J-Flix',
         theme: ThemeData.dark().copyWith(
           colorScheme: kColorScheme,
           primaryColor: kRichBlack,

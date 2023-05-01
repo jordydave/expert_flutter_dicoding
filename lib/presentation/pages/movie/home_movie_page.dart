@@ -16,7 +16,6 @@ import '../../bloc/movie/top_rated_movie_bloc.dart';
 import '../../widgets/movie/home_movie_genre_list_widget.dart';
 import '../../widgets/movie/home_movie_list_widget.dart';
 import '../../widgets/see_more.dart';
-import '../about_page.dart';
 import '../tv/home_tv_page.dart';
 import 'search_page.dart';
 import '../tv/watchlist_tv_page.dart';
@@ -52,7 +51,7 @@ class HomeMoviePageState extends State<HomeMoviePage> {
               currentAccountPicture: CircleAvatar(
                 backgroundImage: AssetImage(AppAssets.logo),
               ),
-              accountName: Text('FilmFinder'),
+              accountName: Text('J-Flix'),
               accountEmail: Text('jordydaveworks@gmail.com'),
             ),
             ListTile(
@@ -83,18 +82,18 @@ class HomeMoviePageState extends State<HomeMoviePage> {
                 Navigator.pushNamed(context, WatchlistTVPage.routeName);
               },
             ),
-            ListTile(
-              onTap: () {
-                Navigator.pushNamed(context, AboutPage.routeName);
-              },
-              leading: const Icon(Icons.info_outline),
-              title: const Text('About'),
-            ),
+            // ListTile(
+            //   onTap: () {
+            //     Navigator.pushNamed(context, AboutPage.routeName);
+            //   },
+            //   leading: const Icon(Icons.info_outline),
+            //   title: const Text('About'),
+            // ),
           ],
         ),
       ),
       appBar: AppBar(
-        title: const Text('FilmFinder Movie'),
+        title: const Text('J-Flix Movie'),
         actions: [
           IconButton(
             onPressed: () {

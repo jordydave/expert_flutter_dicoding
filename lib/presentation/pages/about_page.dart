@@ -26,7 +26,7 @@ class AboutPage extends StatelessWidget {
                   padding: const EdgeInsets.all(32.0),
                   color: kMikadoRed,
                   child: const Text(
-                    'FilmFinder merupakan sebuah aplikasi katalog film yang dikembangkan oleh Dicoding Indonesia sebagai contoh proyek aplikasi untuk kelas Menjadi Flutter Developer Expert.',
+                    'J-Flix merupakan sebuah aplikasi katalog film yang dikembangkan oleh Jordy Dave',
                     style: TextStyle(color: Colors.black87, fontSize: 16),
                     textAlign: TextAlign.justify,
                   ),
