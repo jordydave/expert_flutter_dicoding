@@ -1,6 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:ditonton/domain/entities/tv/tv.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/usecases/tv/get_tv_genre_list.dart';
 

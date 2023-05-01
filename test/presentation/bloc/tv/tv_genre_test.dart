@@ -20,7 +20,7 @@ void main() {
     tvGenreBloc = TvGenreBloc(mockGetTVGenre);
   });
 
-  final tGenreModel = Genre(
+  const tGenreModel = Genre(
     id: 10759,
     name: "Action & Adventure",
   );
@@ -52,14 +52,14 @@ void main() {
     'Should emit [Loading, Error] when TV Genre is gotten unsuccessfully',
     build: () {
       when(mockGetTVGenre.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       return tvGenreBloc;
     },
     act: (bloc) => bloc.add(GetTvGenre()),
     wait: const Duration(milliseconds: 500),
     expect: () => [
       TvGenreLoading(),
-      TvGenreError('Server Failure'),
+      const TvGenreError('Server Failure'),
     ],
     verify: (bloc) {
       verify(mockGetTVGenre.execute());

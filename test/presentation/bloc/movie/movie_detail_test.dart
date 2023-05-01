@@ -86,7 +86,7 @@ void main() {
       when(mockGetMovieSimilar.execute(1))
           .thenAnswer((_) async => Right(tMovieList));
       when(mockGetMoviesVideos.execute(1))
-          .thenAnswer((_) async => Right(tListMovieVideo));
+          .thenAnswer((_) async => const Right(tListMovieVideo));
 
       return movieDetailBloc;
     },

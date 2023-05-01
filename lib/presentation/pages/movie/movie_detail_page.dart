@@ -260,7 +260,7 @@ class _DetailContentState extends State<DetailContent> {
                                     "Video",
                                     style: kHeading6,
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                             BlocBuilder<MovieDetailBloc, MovieDetailState>(
                               builder: (context, state) {
                                 if (state is MovieDetailLoading) {

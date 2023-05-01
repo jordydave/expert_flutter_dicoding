@@ -36,7 +36,7 @@ void main() {
           .thenAnswer((_) async => Right(tTVList));
       return tvGenreListBloc;
     },
-    act: (bloc) => bloc.add(GetTvGenreList(tId)),
+    act: (bloc) => bloc.add(const GetTvGenreList(tId)),
     wait: const Duration(milliseconds: 500),
     expect: () => [
       TvGenreListLoading(),
@@ -51,14 +51,14 @@ void main() {
     'Should emit [Loading, Error] when TV Genre is gotten unsuccessfully',
     build: () {
       when(mockGetTVGenreList.execute(tId))
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       return tvGenreListBloc;
     },
-    act: (bloc) => bloc.add(GetTvGenreList(tId)),
+    act: (bloc) => bloc.add(const GetTvGenreList(tId)),
     wait: const Duration(milliseconds: 500),
     expect: () => [
       TvGenreListLoading(),
-      TvGenreListError('Server Failure'),
+      const TvGenreListError('Server Failure'),
     ],
     verify: (bloc) {
       verify(mockGetTVGenreList.execute(tId));

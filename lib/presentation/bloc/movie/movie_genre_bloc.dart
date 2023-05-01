@@ -1,7 +1,7 @@
-import 'package:bloc/bloc.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/usecases/movie/get_movie_genre.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'movie_genre_event.dart';
 part 'movie_genre_state.dart';

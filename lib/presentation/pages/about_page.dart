@@ -15,11 +15,9 @@ class AboutPage extends StatelessWidget {
           Column(
             children: [
               Expanded(
-                child: Container(
-                  child: Center(
-                    child: Image.asset(
-                      'assets/logo.png',
-                    ),
+                child: Center(
+                  child: Image.asset(
+                    'assets/logo.png',
                   ),
                 ),
               ),

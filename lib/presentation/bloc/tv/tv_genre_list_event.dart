@@ -10,5 +10,5 @@ abstract class TvGenreListEvent extends Equatable {
 class GetTvGenreList extends TvGenreListEvent {
   final int id;
 
-  GetTvGenreList(this.id);
+  const GetTvGenreList(this.id);
 }

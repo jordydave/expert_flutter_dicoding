@@ -50,7 +50,7 @@ void main() {
           .thenAnswer((_) async => Right(tMovieList));
       return movieGenreListBloc;
     },
-    act: (bloc) => bloc.add(GetMovieGenreList(tId)),
+    act: (bloc) => bloc.add(const GetMovieGenreList(tId)),
     wait: const Duration(milliseconds: 500),
     expect: () => [
       MovieGenreListLoading(),
@@ -65,14 +65,14 @@ void main() {
     'Should emit [Loading, Error] when List Movie Genre is gotten unsuccessfully',
     build: () {
       when(mockGetMoviesGenreList.execute(tId))
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       return movieGenreListBloc;
     },
-    act: (bloc) => bloc.add(GetMovieGenreList(tId)),
+    act: (bloc) => bloc.add(const GetMovieGenreList(tId)),
     wait: const Duration(milliseconds: 500),
     expect: () => [
       MovieGenreListLoading(),
-      MovieGenreListError('Server Failure'),
+      const MovieGenreListError('Server Failure'),
     ],
     verify: (bloc) {
       verify(mockGetMoviesGenreList.execute(tId));

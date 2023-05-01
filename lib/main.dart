@@ -40,7 +40,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:ditonton/injection.dart' as di;
 
 void main() async {
@@ -51,13 +50,15 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   di.init();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (_) => di.locator<SearchBloc>(),
@@ -120,42 +121,47 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: kRichBlack,
           textTheme: kTextTheme,
         ),
-        home: HomeMoviePage(),
+        home: const HomeMoviePage(),
         navigatorObservers: [routeObserver],
         onGenerateRoute: (RouteSettings settings) {
           final args = settings.arguments;
           switch (settings.name) {
             case '/home':
-              return MaterialPageRoute(builder: (_) => HomeMoviePage());
+              return MaterialPageRoute(builder: (_) => const HomeMoviePage());
             case PopularMoviesPage.routeName:
-              return CupertinoPageRoute(builder: (_) => PopularMoviesPage());
+              return CupertinoPageRoute(
+                  builder: (_) => const PopularMoviesPage());
             case TopRatedMoviesPage.routeName:
-              return CupertinoPageRoute(builder: (_) => TopRatedMoviesPage());
+              return CupertinoPageRoute(
+                  builder: (_) => const TopRatedMoviesPage());
             case MovieDetailPage.routeName:
               return MaterialPageRoute(
                 builder: (_) => MovieDetailPage(id: args as int),
                 settings: settings,
               );
             case SearchPage.routeName:
-              return CupertinoPageRoute(builder: (_) => SearchPage());
+              return CupertinoPageRoute(builder: (_) => const SearchPage());
             case SearchTVPage.routeName:
-              return CupertinoPageRoute(builder: (_) => SearchTVPage());
+              return CupertinoPageRoute(builder: (_) => const SearchTVPage());
             case WatchlistMoviesPage.routeName:
-              return MaterialPageRoute(builder: (_) => WatchlistMoviesPage());
+              return MaterialPageRoute(
+                  builder: (_) => const WatchlistMoviesPage());
             case WatchlistTVPage.routeName:
-              return MaterialPageRoute(builder: (_) => WatchlistTVPage());
+              return MaterialPageRoute(builder: (_) => const WatchlistTVPage());
             case AboutPage.routeName:
-              return MaterialPageRoute(builder: (_) => AboutPage());
+              return MaterialPageRoute(builder: (_) => const AboutPage());
             case PopularTVPage.routeName:
-              return MaterialPageRoute(builder: (_) => PopularTVPage());
+              return MaterialPageRoute(builder: (_) => const PopularTVPage());
             case HomeTVPage.routeName:
-              return MaterialPageRoute(builder: (_) => HomeTVPage());
+              return MaterialPageRoute(builder: (_) => const HomeTVPage());
             case TopRatedTVPage.routeName:
-              return MaterialPageRoute(builder: (_) => TopRatedTVPage());
+              return MaterialPageRoute(builder: (_) => const TopRatedTVPage());
             case NowPlayingTVPage.routeName:
-              return MaterialPageRoute(builder: (_) => NowPlayingTVPage());
+              return MaterialPageRoute(
+                  builder: (_) => const NowPlayingTVPage());
             case UpcomingMoviesPage.routeName:
-              return MaterialPageRoute(builder: (_) => UpcomingMoviesPage());
+              return MaterialPageRoute(
+                  builder: (_) => const UpcomingMoviesPage());
             case MovieVideoPlayerPage.routeName:
               if (args is List) {
                 return MaterialPageRoute(
@@ -174,7 +180,7 @@ class MyApp extends StatelessWidget {
               );
             default:
               return MaterialPageRoute(builder: (_) {
-                return Scaffold(
+                return const Scaffold(
                   body: Center(
                     child: Text('Page not found :('),
                   ),

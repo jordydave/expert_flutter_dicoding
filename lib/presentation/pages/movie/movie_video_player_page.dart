@@ -14,10 +14,10 @@ class MovieVideoPlayerPage extends StatefulWidget {
       : super(key: key);
 
   @override
-  _MovieVideoPlayerPageState createState() => _MovieVideoPlayerPageState();
+  MovieVideoPlayerPageState createState() => MovieVideoPlayerPageState();
 }
 
-class _MovieVideoPlayerPageState extends State<MovieVideoPlayerPage> {
+class MovieVideoPlayerPageState extends State<MovieVideoPlayerPage> {
   late YoutubePlayerController _controller;
   late TextEditingController _seekToController;
 
@@ -109,7 +109,7 @@ class _MovieVideoPlayerPageState extends State<MovieVideoPlayerPage> {
         appBar: AppBar(
           title: Text(
             widget.movie?.title ?? '',
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
         ),
         body: ListView(

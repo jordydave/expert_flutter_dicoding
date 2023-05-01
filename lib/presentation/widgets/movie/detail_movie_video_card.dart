@@ -21,7 +21,7 @@ class DetailMovieVideoCard extends StatelessWidget {
           ),
           errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
-        Positioned(
+        const Positioned(
           bottom: 0,
           right: 0,
           left: 0,

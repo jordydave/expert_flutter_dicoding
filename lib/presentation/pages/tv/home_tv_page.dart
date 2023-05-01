@@ -219,7 +219,7 @@ class TVList extends StatelessWidget {
 
 class GenreList extends StatefulWidget {
   final List<Genre> genres;
-  GenreList(
+  const GenreList(
     this.genres, {
     Key? key,
   }) : super(key: key);
@@ -244,7 +244,7 @@ class _GenreListState extends State<GenreList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 5, right: 5, bottom: 5),
+      padding: const EdgeInsets.only(top: 5, right: 5, bottom: 5),
       height: 60,
       child: ListView.builder(
         shrinkWrap: true,
@@ -264,8 +264,8 @@ class _GenreListState extends State<GenreList> {
                   );
             },
             child: Container(
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.all(5),
               decoration: BoxDecoration(
                 color: selectedGenre == genre.name ? kPrussianRed : kDavysGrey,
                 borderRadius: BorderRadius.circular(10),

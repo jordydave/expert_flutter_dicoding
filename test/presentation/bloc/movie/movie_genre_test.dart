@@ -20,7 +20,7 @@ void main() {
     movieGenreBloc = MovieGenreBloc(mockGetMoviesGenre);
   });
 
-  final tGenreModel = Genre(
+  const tGenreModel = Genre(
     id: 28,
     name: "Action",
   );
@@ -53,14 +53,14 @@ void main() {
     'Should emit [Loading, Error] when Movie Genre is gotten unsuccessfully',
     build: () {
       when(mockGetMoviesGenre.execute())
-          .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+          .thenAnswer((_) async => const Left(ServerFailure('Server Failure')));
       return movieGenreBloc;
     },
     act: (bloc) => bloc.add(GetMovieGenre()),
     wait: const Duration(milliseconds: 500),
     expect: () => [
       MovieGenreLoading(),
-      MovieGenreError('Server Failure'),
+      const MovieGenreError('Server Failure'),
     ],
     verify: (bloc) {
       verify(mockGetMoviesGenre.execute());
