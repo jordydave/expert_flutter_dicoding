@@ -4,7 +4,6 @@ import 'package:ditonton/presentation/pages/movie/popular_movies_page.dart';
 import 'package:ditonton/presentation/pages/movie/top_rated_movies_page.dart';
 import 'package:ditonton/presentation/pages/movie/upcoming_movies_page.dart';
 import 'package:ditonton/presentation/pages/movie/watchlist_movies_page.dart';
-import 'package:ditonton/presentation/pages/movie/widgets/home_movie_genre_list_widget.dart';
 import 'package:ditonton/utils/app_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,12 +13,13 @@ import '../../bloc/movie/movie_genre_list_bloc.dart';
 import '../../bloc/movie/now_playing_movie_bloc.dart';
 import '../../bloc/movie/popular_movie_bloc.dart';
 import '../../bloc/movie/top_rated_movie_bloc.dart';
+import '../../widgets/movie/home_movie_genre_list_widget.dart';
+import '../../widgets/movie/home_movie_list_widget.dart';
 import '../../widgets/see_more.dart';
 import '../about_page.dart';
 import '../tv/home_tv_page.dart';
 import 'search_page.dart';
 import '../tv/watchlist_tv_page.dart';
-import 'widgets/home_movie_list_widget.dart';
 
 class HomeMoviePage extends StatefulWidget {
   const HomeMoviePage({Key? key}) : super(key: key);

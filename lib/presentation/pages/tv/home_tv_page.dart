@@ -3,8 +3,6 @@ import 'package:ditonton/presentation/bloc/tv/tv_genre_list_bloc.dart';
 import 'package:ditonton/presentation/pages/tv/popular_tv_page.dart';
 import 'package:ditonton/presentation/pages/tv/search_tv_page.dart';
 import 'package:ditonton/presentation/pages/tv/top_rated_tv_page.dart';
-import 'package:ditonton/presentation/pages/tv/widgets/home_tv_genre_list_widget.dart';
-import 'package:ditonton/presentation/pages/tv/widgets/home_tv_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,6 +11,8 @@ import '../../bloc/tv/now_playing_tv_bloc.dart';
 import '../../bloc/tv/popular_tv_bloc.dart';
 import '../../bloc/tv/top_rated_tv_bloc.dart';
 import '../../widgets/see_more.dart';
+import '../../widgets/tv/home_tv_genre_list_widget.dart';
+import '../../widgets/tv/home_tv_list_widget.dart';
 import 'now_playing_tv_page.dart';
 
 class HomeTVPage extends StatefulWidget {

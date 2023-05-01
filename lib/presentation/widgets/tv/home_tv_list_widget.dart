@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../domain/entities/tv/tv.dart';
 import '../../../../utils/constant.dart';
-import '../tv_detail_page.dart';
+import '../../pages/tv/tv_detail_page.dart';
 
 class TVList extends StatelessWidget {
   final List<TV> tv;
