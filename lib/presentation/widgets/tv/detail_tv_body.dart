@@ -76,13 +76,71 @@ class _DetailTVBodyState extends State<DetailTVBody> {
                             ),
                             ElevatedButton(
                               onPressed: () async {
-                                final isAdded = await toggleWatchlist(
-                                  widget.tv,
-                                  context,
-                                );
-                                showWatchlistSnackbar(isAdded);
+                                if (!widget.isAddedWatchlist) {
+                                  context
+                                      .read<TvWatchlistBloc>()
+                                      .add(AddTvWatchlist(widget.tv));
+                                } else {
+                                  context
+                                      .read<TvWatchlistBloc>()
+                                      .add(RemoveTvWatchlist(widget.tv));
+                                }
+                                final state =
+                                    BlocProvider.of<TvWatchlistBloc>(context)
+                                        .state;
+                                String message = '';
+
+                                if (state is TvWatchlistAdded) {
+                                  final isAdded = state.isAdd;
+                                  message = isAdded == false
+                                      ? 'TV Add to Watchlist'
+                                      : 'TV Remove to Watchlist';
+                                } else {
+                                  message = !widget.isAddedWatchlist
+                                      ? 'TV Add to Watchlist'
+                                      : 'TV Remove to Watchlist';
+                                }
+                                if (message == 'TV Add to Watchlist' ||
+                                    message == 'TV Remove to Watchlist') {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(message),
+                                          Expanded(
+                                            child: TextButton(
+                                              onPressed: () {
+                                                Navigator.pushNamed(context,
+                                                    WatchlistTVPage.routeName);
+                                              },
+                                              child: Text(
+                                                "Go To Watchlist",
+                                                style: kBodyText.copyWith(
+                                                  color: kPrussianRed,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        content: Text(message),
+                                      );
+                                    },
+                                  );
+                                }
                                 setState(() {
-                                  widget.isAddedWatchlist = isAdded;
+                                  widget.isAddedWatchlist =
+                                      !widget.isAddedWatchlist;
                                 });
                               },
                               child: Row(

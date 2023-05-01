@@ -82,13 +82,73 @@ class _DetailMovieBodyState extends State<DetailMovieBody> {
                             ),
                             ElevatedButton(
                               onPressed: () async {
-                                final isAdded = await toggleWatchlist(
-                                  widget.movie,
-                                  context,
-                                );
-                                showWatchlistSnackbar(isAdded);
+                                if (!widget.isAddedWatchlist) {
+                                  context
+                                      .read<MovieWatchlistBloc>()
+                                      .add(AddMovieWatchlist(widget.movie));
+                                } else {
+                                  context
+                                      .read<MovieWatchlistBloc>()
+                                      .add(RemoveMovieWatchlist(widget.movie));
+                                }
+                                final state =
+                                    BlocProvider.of<MovieWatchlistBloc>(context)
+                                        .state;
+                                String message = '';
+
+                                if (state is MovieWatchlistAdded) {
+                                  final isAdded = state.isAdd;
+                                  message = isAdded == false
+                                      ? 'Movie Add to Watchlist'
+                                      : 'Movie Remove to Watchlist';
+                                } else {
+                                  message = !widget.isAddedWatchlist
+                                      ? 'Movie Add to Watchlist'
+                                      : 'Movie Remove to Watchlist';
+                                }
+                                if (message == 'Movie Add to Watchlist' ||
+                                    message == 'Movie Remove to Watchlist') {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(message),
+                                          Expanded(
+                                            child: TextButton(
+                                              onPressed: () {
+                                                Navigator.pushNamed(
+                                                    context,
+                                                    WatchlistMoviesPage
+                                                        .routeName);
+                                              },
+                                              child: Text(
+                                                "Go To Watchlist",
+                                                style: kBodyText.copyWith(
+                                                  color: kPrussianRed,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        content: Text(message),
+                                      );
+                                    },
+                                  );
+                                }
                                 setState(() {
-                                  widget.isAddedWatchlist = isAdded;
+                                  widget.isAddedWatchlist =
+                                      !widget.isAddedWatchlist;
                                 });
                               },
                               child: Row(
@@ -307,54 +367,6 @@ class _DetailMovieBodyState extends State<DetailMovieBody> {
         )
       ],
     );
-  }
-
-  void showWatchlistSnackbar(bool isAdded) {
-    final message =
-        isAdded ? 'Movie Add to Watchlist' : 'Movie Remove to Watchlist';
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(message),
-            Expanded(
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, WatchlistMoviesPage.routeName);
-                },
-                child: Text(
-                  "Go To Watchlist",
-                  style: kBodyText.copyWith(
-                    color: kPrussianRed,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Future<bool> toggleWatchlist(MovieDetail movie, BuildContext context) async {
-    final bloc = context.read<MovieWatchlistBloc>();
-    final isAddedWatchlist = !widget.isAddedWatchlist;
-
-    if (isAddedWatchlist) {
-      bloc.add(AddMovieWatchlist(movie));
-    } else {
-      bloc.add(RemoveMovieWatchlist(movie));
-    }
-
-    final state = BlocProvider.of<MovieWatchlistBloc>(context).state;
-
-    if (state is MovieWatchlistAdded) {
-      return state.isAdd;
-    } else {
-      return isAddedWatchlist;
-    }
   }
 
   String _showGenres(List<Genre> genres) {
