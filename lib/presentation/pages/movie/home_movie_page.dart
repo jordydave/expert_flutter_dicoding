@@ -16,6 +16,8 @@ import '../../bloc/movie/top_rated_movie_bloc.dart';
 import '../../widgets/movie/home_movie_genre_list_widget.dart';
 import '../../widgets/movie/home_movie_list_widget.dart';
 import '../../widgets/see_more.dart';
+import '../../widgets/shimmer_content_list.dart';
+import '../../widgets/shimmer_genre_list.dart';
 import '../tv/home_tv_page.dart';
 import 'search_page.dart';
 import '../tv/watchlist_tv_page.dart';
@@ -117,9 +119,7 @@ class HomeMoviePageState extends State<HomeMoviePage> {
               BlocBuilder<MovieGenreBloc, MovieGenreState>(
                 builder: (context, state) {
                   if (state is MovieGenreLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return const ShimmerGenreList();
                   } else if (state is MovieGenreHasData) {
                     return GenreListMovie(state.result);
                   } else if (state is MovieGenreError) {
@@ -138,9 +138,7 @@ class HomeMoviePageState extends State<HomeMoviePage> {
               BlocBuilder<MovieGenreListBloc, MovieGenreListState>(
                 builder: (context, state) {
                   if (state is MovieGenreListLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return const ShimmerContentList();
                   } else if (state is MovieGenreListHasData) {
                     return MovieList(
                       state.result,
@@ -152,7 +150,7 @@ class HomeMoviePageState extends State<HomeMoviePage> {
                       ),
                     );
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 },
               ),
@@ -165,9 +163,7 @@ class HomeMoviePageState extends State<HomeMoviePage> {
               BlocBuilder<NowPlayingMovieBloc, NowPlayingMovieState>(
                 builder: (context, state) {
                   if (state is NowPlayingMovieLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return const ShimmerContentList();
                   } else if (state is NowPlayingMovieHasData) {
                     return MovieList(state.result);
                   } else if (state is NowPlayingMovieError) {
@@ -175,7 +171,7 @@ class HomeMoviePageState extends State<HomeMoviePage> {
                       child: Text(state.message),
                     );
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 },
               ),
@@ -191,9 +187,7 @@ class HomeMoviePageState extends State<HomeMoviePage> {
               BlocBuilder<PopularMovieBloc, PopularMovieState>(
                 builder: (context, state) {
                   if (state is PopularMovieLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return const ShimmerContentList();
                   } else if (state is PopularMovieHasData) {
                     return MovieList(state.result);
                   } else if (state is PopularMovieError) {
@@ -201,7 +195,7 @@ class HomeMoviePageState extends State<HomeMoviePage> {
                       child: Text(state.message),
                     );
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 },
               ),
@@ -217,9 +211,7 @@ class HomeMoviePageState extends State<HomeMoviePage> {
               BlocBuilder<TopRatedMovieBloc, TopRatedMovieState>(
                 builder: (context, state) {
                   if (state is TopRatedMovieLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return const ShimmerContentList();
                   } else if (state is TopRatedMovieHasData) {
                     return MovieList(state.result);
                   } else if (state is TopRatedMovieError) {
@@ -227,7 +219,7 @@ class HomeMoviePageState extends State<HomeMoviePage> {
                       child: Text(state.message),
                     );
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 },
               ),
@@ -243,9 +235,7 @@ class HomeMoviePageState extends State<HomeMoviePage> {
               BlocBuilder<UpcomingMovieBloc, UpcomingMovieState>(
                 builder: (context, state) {
                   if (state is UpcomingMovieLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return const ShimmerContentList();
                   } else if (state is UpcomingMovieHasData) {
                     return MovieList(state.result);
                   } else if (state is UpcomingMovieError) {
@@ -253,7 +243,7 @@ class HomeMoviePageState extends State<HomeMoviePage> {
                       child: Text(state.message),
                     );
                   } else {
-                    return Container();
+                    return const SizedBox();
                   }
                 },
               ),

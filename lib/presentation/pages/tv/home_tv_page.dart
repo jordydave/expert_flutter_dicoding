@@ -11,6 +11,8 @@ import '../../bloc/tv/now_playing_tv_bloc.dart';
 import '../../bloc/tv/popular_tv_bloc.dart';
 import '../../bloc/tv/top_rated_tv_bloc.dart';
 import '../../widgets/see_more.dart';
+import '../../widgets/shimmer_content_list.dart';
+import '../../widgets/shimmer_genre_list.dart';
 import '../../widgets/tv/home_tv_genre_list_widget.dart';
 import '../../widgets/tv/home_tv_list_widget.dart';
 import 'now_playing_tv_page.dart';
@@ -62,9 +64,7 @@ class _HomeTVPageState extends State<HomeTVPage> {
             BlocBuilder<TvGenreBloc, TvGenreState>(
               builder: (context, state) {
                 if (state is TvGenreLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return const ShimmerGenreList();
                 } else if (state is TvGenreHasData) {
                   return GenreListTV(state.result);
                 } else if (state is TvGenreError) {
@@ -83,9 +83,7 @@ class _HomeTVPageState extends State<HomeTVPage> {
             BlocBuilder<TvGenreListBloc, TvGenreListState>(
               builder: (context, state) {
                 if (state is TvGenreListLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return const ShimmerContentList();
                 } else if (state is TvGenreListHasData) {
                   return TVList(
                     state.result,
@@ -113,9 +111,7 @@ class _HomeTVPageState extends State<HomeTVPage> {
             BlocBuilder<NowPlayingTvBloc, NowPlayingTvState>(
               builder: (context, state) {
                 if (state is NowPlayingTvLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return const ShimmerContentList();
                 } else if (state is NowPlayingTvHasData) {
                   return TVList(state.result);
                 } else if (state is NowPlayingTvError) {
@@ -137,9 +133,7 @@ class _HomeTVPageState extends State<HomeTVPage> {
             BlocBuilder<PopularTvBloc, PopularTvState>(
               builder: (context, state) {
                 if (state is PopularTvLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return const ShimmerContentList();
                 } else if (state is PopularTvHasData) {
                   return TVList(state.result);
                 } else if (state is PopularTvError) {
@@ -161,9 +155,7 @@ class _HomeTVPageState extends State<HomeTVPage> {
             BlocBuilder<TopRatedTvBloc, TopRatedTvState>(
               builder: (context, state) {
                 if (state is TopRatedTvLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return const ShimmerContentList();
                 } else if (state is TopRatedTvHasData) {
                   return TVList(state.result);
                 } else if (state is TopRatedTvError) {
