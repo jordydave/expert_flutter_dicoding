@@ -32,7 +32,7 @@ class Shared {
     HttpClient httpClient = HttpClient(context: context);
     httpClient.badCertificateCallback =
         (X509Certificate cert, String host, int port) {
-      return false;
+      return true;
     };
     return httpClient;
   }
