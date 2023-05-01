@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,7 +38,6 @@ class _NowPlayingTVPageState extends State<NowPlayingTVPage> {
               );
             } else if (state is NowPlayingTvError) {
               return Center(
-                key: const Key('error_message'),
                 child: Text(state.message),
               );
             } else {

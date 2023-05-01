@@ -39,7 +39,6 @@ class UpcomingMoviesPageState extends State<UpcomingMoviesPage> {
               );
             } else if (state is UpcomingMovieError) {
               return Center(
-                key: const Key('error_message'),
                 child: Text(state.message),
               );
             } else {

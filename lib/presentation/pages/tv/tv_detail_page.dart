@@ -72,5 +72,3 @@ class _TVDetailpageState extends State<TVDetailpage> {
     );
   }
 }
-
-// ignore: must_be_immutable

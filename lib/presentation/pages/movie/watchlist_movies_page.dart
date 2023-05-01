@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -60,7 +59,6 @@ class WatchlistMoviesPageState extends State<WatchlistMoviesPage>
               );
             } else if (state is MovieWatchlistError) {
               return Center(
-                key: const Key('error_message'),
                 child: Text(state.message),
               );
             } else {

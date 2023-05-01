@@ -1,11 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../utils/utils.dart';
 import '../../bloc/tv/tv_watchlist_bloc.dart';
 import '../../widgets/tv/tv_card_list.dart';
-
 
 class WatchlistTVPage extends StatefulWidget {
   static const routeName = '/watchlist-tv';
@@ -60,7 +58,6 @@ class WatchlistTVPageState extends State<WatchlistTVPage> with RouteAware {
               );
             } else if (state is TvWatchlistError) {
               return Center(
-                key: const Key('error_message'),
                 child: Text(state.message),
               );
             } else {
