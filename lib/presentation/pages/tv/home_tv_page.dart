@@ -5,12 +5,11 @@ import 'package:ditonton/presentation/pages/tv/popular_tv_page.dart';
 import 'package:ditonton/presentation/pages/tv/search_tv_page.dart';
 import 'package:ditonton/presentation/pages/tv/top_rated_tv_page.dart';
 import 'package:ditonton/presentation/pages/tv/tv_detail_page.dart';
+import 'package:ditonton/presentation/pages/tv/widgets/home_tv_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../domain/entities/genre.dart';
 import '../../../domain/entities/tv/tv.dart';
-import '../../../styles/colors.dart';
 import '../../../styles/test_styles.dart';
 import '../../../utils/constant.dart';
 import '../../bloc/tv/now_playing_tv_bloc.dart';
@@ -69,7 +68,7 @@ class _HomeTVPageState extends State<HomeTVPage> {
                     child: CircularProgressIndicator(),
                   );
                 } else if (state is TvGenreHasData) {
-                  return GenreList(state.result);
+                  return GenreListTV(state.result);
                 } else if (state is TvGenreError) {
                   return Center(
                     child: Text(
@@ -212,70 +211,6 @@ class TVList extends StatelessWidget {
           );
         },
         itemCount: tv.length,
-      ),
-    );
-  }
-}
-
-class GenreList extends StatefulWidget {
-  final List<Genre> genres;
-  const GenreList(
-    this.genres, {
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<GenreList> createState() => _GenreListState();
-}
-
-class _GenreListState extends State<GenreList> {
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(() {
-      context.read<TvGenreListBloc>().add(GetTvGenreList(
-            widget.genres.first.id,
-          ));
-    });
-  }
-
-  String selectedGenre = 'Action & Adventure';
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(top: 5, right: 5, bottom: 5),
-      height: 60,
-      child: ListView.builder(
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        itemCount: widget.genres.length,
-        itemBuilder: (BuildContext context, int index) {
-          final genre = widget.genres[index];
-          return GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedGenre = genre.name;
-              });
-              context.read<TvGenreListBloc>().add(
-                    GetTvGenreList(
-                      genre.id,
-                    ),
-                  );
-            },
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              margin: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: selectedGenre == genre.name ? kPrussianRed : kDavysGrey,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Text(
-                widget.genres[index].name,
-              ),
-            ),
-          );
-        },
       ),
     );
   }
